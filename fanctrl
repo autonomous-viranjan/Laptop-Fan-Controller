@@ -1,0 +1,18 @@
+#!/bin/sh
+for i in {1..100000}
+do
+    Tsafe=68
+    Tupper=75
+    T=$(i8kctl temp)
+    echo $T
+    if [ $T -le $Tsafe ]
+    then
+        i8kctl fan 0 0
+    elif [ $T -gt $Tsafe  ] && [ $T -lt $Tupper  ]
+    then
+        i8kctl fan 1 1
+    elif [ $T -ge $Tupper ]
+    then
+        i8kctl fan 2 2
+    fi
+done
